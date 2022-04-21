@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
+  // AJOUTER UNICITE EMAIL USER
   User.init(
     {
       email: DataTypes.STRING,
