@@ -13,11 +13,19 @@ const newToken = (user) => {
 
 exports.login = async (req, res) => {
   const user = await User.findOne({ where: { email: req.body.email } });
+  console.log(user.password);
+  console.log(req.body.password);
+
   if (user) {
+    const salt = 10;
+
+    //const passwordHash = await bcrypt.hash(req.body.password, salt);
     const passwordValid = await bcrypt.compare(
       req.body.password,
       user.password
     );
+    console.log(passwordValid);
+
     if (passwordValid) {
       token = jwt.sign(
         {
@@ -40,7 +48,7 @@ exports.login = async (req, res) => {
 };
 
 exports.signup = async (req, res, next) => {
-  const salt = await bcrypt.genSalt(10);
+  const salt = 10;
 
   User.create({
     email: req.body.email,
